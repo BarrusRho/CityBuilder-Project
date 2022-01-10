@@ -7,8 +7,8 @@ namespace CityBuilder
 {
     public class InputManager : MonoBehaviour
     {
-        public LayerMask mouseInputMask;
-
+        public LayerMask MouseInputMask;
+        //public GameObject BuildingPrefab;
         private void Update()
         {
             GetInput();
@@ -21,13 +21,17 @@ namespace CityBuilder
                 var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
 
-                if (Physics.Raycast(ray.origin, ray.direction, out hit, Mathf.Infinity, mouseInputMask))
+                if (Physics.Raycast(ray.origin, ray.direction, out hit, Mathf.Infinity, MouseInputMask))
                 {
                     Vector3 position = hit.point - transform.position;
-                    Debug.Log(position);
                 }
             }
         }
+
+        /*private void CreateBuilding(Vector3 gridPosition)
+        {
+            Instantiate(BuildingPrefab, gridPosition, Quaternion.identity);
+        }*/
     }
 
 }
