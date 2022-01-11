@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,8 +8,9 @@ namespace CityBuilder
 {
     public class InputManager : MonoBehaviour
     {
+        private Action<Vector3> OnPointerDownHandler;
         public LayerMask MouseInputMask;
-        //public GameObject BuildingPrefab;
+
         private void Update()
         {
             GetInput();
@@ -24,14 +26,20 @@ namespace CityBuilder
                 if (Physics.Raycast(ray.origin, ray.direction, out hit, Mathf.Infinity, MouseInputMask))
                 {
                     Vector3 position = hit.point - transform.position;
+                    OnPointerDownHandler?.Invoke(position);
                 }
             }
         }
 
-        /*private void CreateBuilding(Vector3 gridPosition)
+        public void AddListenerOnPointerDownEvent(Action<Vector3> listener)
         {
-            Instantiate(BuildingPrefab, gridPosition, Quaternion.identity);
-        }*/
+            OnPointerDownHandler += listener;
+        }
+
+        public void RemoveListenerOnPointerDownEvent(Action<Vector3> listener)
+        {
+            OnPointerDownHandler -= listener;
+        }
     }
 
 }
