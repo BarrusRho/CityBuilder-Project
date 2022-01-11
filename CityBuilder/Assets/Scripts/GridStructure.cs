@@ -16,7 +16,7 @@ namespace CityBuilder
         public Vector3 CalculateGridPosition(Vector3 inputPosition)
         {
             int x = Mathf.FloorToInt((float)inputPosition.x / _cellSize);
-            int z = Mathf.FloorToInt((float)inputPosition.y / _cellSize);
+            int z = Mathf.FloorToInt((float)inputPosition.z / _cellSize);
             return new Vector3(x * _cellSize, 0, z * _cellSize);            
         }
     }
