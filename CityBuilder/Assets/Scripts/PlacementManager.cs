@@ -14,9 +14,10 @@ namespace CityBuilder
 
         }
 
-        public void CreateBuilding(Vector3 gridPosition)
+        public void CreateBuilding(Vector3 gridPosition, GridStructure grid)
         {
-            Instantiate(BuildingPrefab, Ground.position + gridPosition, Quaternion.identity);
+            GameObject newStructure = Instantiate(BuildingPrefab, Ground.position + gridPosition, Quaternion.identity);
+            grid.PlaceStructureOnGrid(newStructure, gridPosition);
         }
 
     }

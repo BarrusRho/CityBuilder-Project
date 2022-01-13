@@ -2,17 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Cell : MonoBehaviour
+namespace CityBuilder
 {
-    // Start is called before the first frame update
-    void Start()
+    public class Cell
     {
-        
+        private GameObject _structureModel = null;
+        private bool _isTaken = false;
+
+        public bool IsTaken { get => _isTaken; }
+
+        public void SetConstruction(GameObject structureModel)
+        {
+            if (structureModel == null)
+            {
+                return;
+            }
+            this._structureModel = structureModel;
+            this._isTaken = true;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
