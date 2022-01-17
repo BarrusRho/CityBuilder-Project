@@ -289,8 +289,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6908ac5b69c640498e893fdfe08143b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InputManager: {fileID: 1473841923}
   PlacementManager: {fileID: 610678402}
+  UIController: {fileID: 1894850644}
   Width: 100
   Length: 100
 --- !u!4 &768436255
@@ -770,17 +770,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1cf5308f726c9004ca6bc7ffae6ae4fd, type: 3}
---- !u!114 &1196583728 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7719142742172368375, guid: 1cf5308f726c9004ca6bc7ffae6ae4fd, type: 3}
-  m_PrefabInstance: {fileID: 1196583727}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1349538241
 GameObject:
   m_ObjectHideFlags: 0
@@ -1016,6 +1005,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &1746699807 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7719142742172368375, guid: 1cf5308f726c9004ca6bc7ffae6ae4fd, type: 3}
+  m_PrefabInstance: {fileID: 1196583727}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1854694579
 GameObject:
   m_ObjectHideFlags: 0
@@ -1075,7 +1075,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcea49dd316f20b4090cdbdcd01483cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BuildResidentialAreaButton: {fileID: 1196583728}
+  BuildResidentialAreaButton: {fileID: 1746699807}
   CancelActionButton: {fileID: 8153422412245055903}
   CancelActionPanel: {fileID: 3899298872977657341}
 --- !u!4 &1894850645

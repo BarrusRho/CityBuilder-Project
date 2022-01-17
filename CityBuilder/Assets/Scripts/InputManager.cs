@@ -6,7 +6,14 @@ using UnityEngine.EventSystems;
 
 namespace CityBuilder
 {
-    public class InputManager : MonoBehaviour
+    public interface IInputManager
+    {
+        void AddListenerOnPointerDownEvent(Action<Vector3> listener);
+        void GetInput();
+        void RemoveListenerOnPointerDownEvent(Action<Vector3> listener);
+    }
+
+    public class InputManager : MonoBehaviour, IInputManager
     {
         private Action<Vector3> OnPointerDownHandler;
         public LayerMask MouseInputMask;
