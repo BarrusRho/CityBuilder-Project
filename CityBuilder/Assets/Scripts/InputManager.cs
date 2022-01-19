@@ -6,24 +6,20 @@ using UnityEngine.EventSystems;
 
 namespace CityBuilder
 {
-    public interface IInputManager
-    {
-        void AddListenerOnPointerDownEvent(Action<Vector3> listener);
-        void GetInput();
-        void RemoveListenerOnPointerDownEvent(Action<Vector3> listener);
-    }
-
     public class InputManager : MonoBehaviour, IInputManager
     {
         private Action<Vector3> OnPointerDownHandler;
+        private Action<Vector3> OnPointerSecondDownHandler;
+        private Action OnPointerSecondUpHandler;
         public LayerMask MouseInputMask;
 
         private void Update()
         {
-            GetInput();
+            GetPointerPosition();
+            GetPanningPointer();
         }
 
-        public void GetInput()
+        private void GetPointerPosition()
         {
             if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
             {
@@ -38,6 +34,19 @@ namespace CityBuilder
             }
         }
 
+        private void GetPanningPointer()
+        {
+            if (Input.GetMouseButton(1))
+            {
+                var position = Input.mousePosition;
+                OnPointerSecondDownHandler?.Invoke(position);
+            }
+            if (Input.GetMouseButtonUp(1))
+            {
+                OnPointerSecondUpHandler?.Invoke();
+            }
+        }
+
         public void AddListenerOnPointerDownEvent(Action<Vector3> listener)
         {
             OnPointerDownHandler += listener;
@@ -46,6 +55,26 @@ namespace CityBuilder
         public void RemoveListenerOnPointerDownEvent(Action<Vector3> listener)
         {
             OnPointerDownHandler -= listener;
+        }
+
+        public void AddListenerOnPointerSecondDownEvent(Action<Vector3> listener)
+        {
+            OnPointerSecondDownHandler += listener;
+        }
+
+        public void RemoveListenerOnPointeSecondDownEvent(Action<Vector3> listener)
+        {
+            OnPointerSecondDownHandler -= listener;
+        }
+
+        public void AddListenerOnPointerSecondUpEvent(Action listener)
+        {
+            OnPointerSecondUpHandler += listener;
+        }
+
+        public void RemoveListenerOnPointerSecondUpEvent(Action listener)
+        {
+            OnPointerSecondUpHandler -= listener;
         }
     }
 
