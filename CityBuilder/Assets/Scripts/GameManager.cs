@@ -20,13 +20,22 @@ namespace CityBuilder
         private void Start()
         {
             CameraMovement.SetCameraLimits(0, Width, 0, Length);
-            InputManager = FindObjectsOfType<MonoBehaviour>().OfType<IInputManager>().FirstOrDefault();
             _grid = new GridStructure(_cellSize, Width, Length);
+
+            InputManager = FindObjectsOfType<MonoBehaviour>().OfType<IInputManager>().FirstOrDefault();
+
             InputManager.AddListenerOnPointerDownEvent(HandleInput);
-            InputManager.AddListenerOnPointerSecondDownEvent(HandleInputCameraPan);
+            InputManager.AddListenerOnPointerSecondChangeEvent(HandleInputCameraPan);
             InputManager.AddListenerOnPointerSecondUpEvent(HandleInputCameraPanStop);
+            InputManager.AddListenerOnPointerChangeEvent(HandlePointerChange);
+
             UIController.AddListenerOnBuildAreaEvent(StartPlacementMode);
             UIController.AddListenerOnCancelActionEvent(CancelAction);
+        }
+
+        private void HandlePointerChange(Vector3 position)
+        {
+            Debug.Log(position);
         }
 
         private void HandleInputCameraPanStop()
