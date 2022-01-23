@@ -15,12 +15,23 @@ namespace CityBuilder
         public CameraMovement CameraMovement;
         private GridStructure _grid;
         private int _cellSize = 3;
-        private bool _isBuildingModeActive = false;
+        
+        private PlayerState _state;
+
+        public PlayerSelectionState SelectionState;
+        public PlayerBuildingSingleStructureState BuildingSingleStructureState;
+
+        private void Awake()
+        {
+            _grid = new GridStructure(_cellSize, Width, Length);
+            SelectionState = new PlayerSelectionState(this, CameraMovement);
+            BuildingSingleStructureState = new PlayerBuildingSingleStructureState(this, PlacementManager, _grid);
+            _state = SelectionState;
+        }
 
         private void Start()
         {
             CameraMovement.SetCameraLimits(0, Width, 0, Length);
-            _grid = new GridStructure(_cellSize, Width, Length);
 
             InputManager = FindObjectsOfType<MonoBehaviour>().OfType<IInputManager>().FirstOrDefault();
 
@@ -35,39 +46,38 @@ namespace CityBuilder
 
         private void HandlePointerChange(Vector3 position)
         {
-            Debug.Log(position);
+            _state.OnInputPointerChange(position);
         }
 
         private void HandleInputCameraPanStop()
         {
-            CameraMovement.StopCameraMovement();
+            _state.OnInputPanUp();
         }
 
         private void HandleInputCameraPan(Vector3 position)
         {
-            if (_isBuildingModeActive == false)
-            {
-                CameraMovement.MoveCamera(position);
-            }
+            _state.OnInputPanChange(position);
         }
 
         private void HandleInput(Vector3 position)
         {
-            Vector3 gridPosition = _grid.CalculateGridPosition(position);
-            if (_isBuildingModeActive == true && _grid.IsCellTaken(gridPosition) == false)
-            {
-                PlacementManager.CreateBuilding(gridPosition, _grid);
-            }
+            _state.OnInputPointerDown(position);
         }
 
         private void StartPlacementMode()
         {
-            _isBuildingModeActive = true;
+            TransitionToState(BuildingSingleStructureState);
         }
 
         private void CancelAction()
         {
-            _isBuildingModeActive = false;
+            _state.OnCancel();
+        }
+
+        public void TransitionToState(PlayerState newState)
+        {
+            this._state = newState;
+            this._state.EnterState();
         }
     }
 }
